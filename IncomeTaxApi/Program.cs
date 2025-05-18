@@ -1,43 +1,44 @@
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace IncomeTaxApi
 {
-
     public class Program
     {
         public static async Task Main(string[] args)
         {
             try
             {
+                var host = CreateHostBuilder(args).Build();
 
-                var builder = WebApplication.CreateBuilder(args);
-
-                builder.Services.AddEndpointsApiExplorer();
-                builder.Services.AddSwaggerGen();
-
-                // Registering Database
-                builder.Services.AddDbContext<IncomeDbContext>(options =>
-                    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-                var app = builder.Build();
-
-                // Configuring the HTTP request pipeline.
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                }
-
-                app.UseHttpsRedirection();
-
-                app.Run();
+                await host.RunAsync();
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "An unhandled exception occurred.");
                 throw;
             }
+            finally
+            {
+                await Log.CloseAndFlushAsync();
+            }
+        }
+        
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var builder =
+                Host.CreateDefaultBuilder(args)
+                    .ConfigureAppConfiguration(config =>
+                    {
+                        config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    })
+                    .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                    .UseDefaultServiceProvider((context, options) =>
+                    {
+                        options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
+                        options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
+                    });
+
+            return builder;
         }
     }
 }
