@@ -5,6 +5,8 @@ namespace IncomeTaxApi.Data
     /// <summary>
     /// Wrapper class that helps avoid injecting and using the DbContext directly,
     /// as well as giving flexibility with unit tests
+    /// Currently only containing functions that this application uses
+    /// but can be expanded
     /// </summary>
     public interface IUnitOfWork
     {

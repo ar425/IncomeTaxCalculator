@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace IncomeTaxApi.Data.Contexts
 {
     // For scalability; any future entities created can be put in here, rather than having a separate context for each entity
-    public interface IIncomeTaxCalculatorContext
+    public interface IIncomeTaxCalculatorContext : IDbContext
     {
         DbSet<TaxBand> TaxBands { get; set; }
     }

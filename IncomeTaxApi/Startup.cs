@@ -1,7 +1,13 @@
-﻿using IncomeTaxApi.Api.Services;
+﻿using System.Reflection;
+using IncomeTaxApi.Abstractions;
+using IncomeTaxApi.Api.Commands.CalculateIncomeTax;
+using IncomeTaxApi.Api.Controllers;
+using IncomeTaxApi.Api.Services;
 using IncomeTaxApi.Data;
 using IncomeTaxApi.Data.Contexts;
+using IncomeTaxApi.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Npgsql;
 
 namespace IncomeTaxApi
@@ -19,12 +25,42 @@ namespace IncomeTaxApi
         {
             services.AddRouting(options => { options.LowercaseUrls = true; });
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-
-            services.AddControllers();
             
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IncomeTax API", Version = "v1" });
+            });
+
+            services.AddControllers()
+                .AddApplicationPart(typeof(TaxController).Assembly);
+            
+            // transient; new instance created every time the service is requested
             services.AddTransient<ICalculateIncomeTaxService, CalculateIncomeTaxService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            // scoped; single instance per HTTP request or scope
+            services.AddScoped<CalculateIncomeTaxCommandValidator>();
+            
+            // singleton is not used in this application currently, but could be used for something like a memory cache
+            // as it would only have one instance for the entire application lifetime
+            
+            // Registering services in the DI container by scanning the current assembly
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            
+            // This finds all classes implementing these interfaces and registers them
+            // dynamically, reducing boilerplate
+            services.Scan(scan => scan
+                .FromAssemblies(executingAssembly)
+                .AddClasses(c => c.AssignableTo(typeof(IRequestHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+                .AddClasses(c => c.AssignableTo(typeof(IConverter<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+                .AddClasses(classes => classes.AssignableToAny(typeof(IRepositoryBase<>)), false)
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+                
 
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
@@ -41,6 +77,16 @@ namespace IncomeTaxApi
             app.UseForwardedHeaders();
             app.UseCors();
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "IncomeTax API v1");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

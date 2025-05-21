@@ -53,7 +53,7 @@ do {
                 Write-Host "Error updating database." -ForegroundColor Red
             }
         }
-        "4" { Write-Host "Good‑bye!"; break }
+        "4" { Write-Host "Good‑bye!"; return }
         default { Write-Host "Invalid option." -ForegroundColor Yellow }
     }
 } while ($true)
