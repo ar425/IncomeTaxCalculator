@@ -23,7 +23,7 @@ namespace IncomeTaxApi
             }
         }
         
-        private static IHostBuilder CreateHostBuilder(string[] args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var builder =
                 Host.CreateDefaultBuilder(args)

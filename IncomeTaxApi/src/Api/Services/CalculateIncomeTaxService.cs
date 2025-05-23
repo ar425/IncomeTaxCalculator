@@ -27,7 +27,7 @@ namespace IncomeTaxApi.Api.Services
         {
             var taxBands = (await _unitOfWork.GetRepository<ITaxBandRepository>().GetAllAsync()).ToList();
 
-            if (taxBands.Count() < 0)
+            if (!taxBands.Any())
             {
                 _logger.LogError("Could not find any tax bands in the repository");
                 throw new Exception("Could not find any tax bands in the repository");
