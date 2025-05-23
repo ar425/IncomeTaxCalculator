@@ -1,0 +1,124 @@
+.income-tax-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding-inline: 10px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.income-tax-top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-inline: 12px;
+  gap: 10px;
+}
+
+.income-tax-bottom-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 20px;
+  gap: 10px;
+}
+
+.entry-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  gap: 8px;
+  padding-bottom: 20px;
+}
+
+.income-tax-output-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button-container {
+  padding-inline-end: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-bottom {
+    width: 94%;
+  }
+}
+
+.entry-input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 4px;
+  input {
+    z-index: 1;
+  }
+}
+
+app-form-error {
+  position: absolute;
+  top: 100%;
+  margin-top: 4px;
+}
+
+/* Tablet: Min-width 600px */
+@media (min-width: 600px) {
+  .income-tax-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .income-tax-top-container,
+  .income-tax-bottom-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .entry-container {
+    width: 48%;
+    flex-direction: row;
+  }
+
+  .income-tax-output-container {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .income-tax-bottom-container {
+    padding-inline: 10px;
+  }
+
+  .button-container-bottom {
+    padding-inline-end: 22px;
+    width: unset;
+  }
+}
+
+
+/* Desktop: Min-width 900px */
+@media (min-width: 900px) {
+  .entry-container {
+    flex-direction: row;
+    gap: 18px;
+    padding-bottom: unset;
+  }
+
+  .income-tax-container,
+  .income-tax-top-container,
+  .income-tax-bottom-container {
+    gap: 20px;
+  }
+}

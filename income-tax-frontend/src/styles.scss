@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    background-color: #fff;
+    color: #3E4F60;
+    margin-inline: 5px;
+    
+    * {
+    font-family:  "Nunito",sans-serif;
+    font-size: large;
+    }
+
+    button {
+        transition-duration: 0.4s;
+        background-color: #0096aa;
+        color: white;
+        border: none;
+        padding: 15px;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: #047888;
+        color: white;
+    }
+
+    @media (min-width: 600px) {
+        button {
+            width: 140px;
+        }
+    }
+}

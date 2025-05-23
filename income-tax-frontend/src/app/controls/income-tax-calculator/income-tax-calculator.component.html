@@ -1,0 +1,69 @@
+<app-main-content-wrapper>
+    <div class="income-tax-top-container" top>
+        <div class="income-tax-title">Calculator</div>
+        <button class="income-tax-button" (click)="goBackToStart()">Back To Start</button>
+    </div>
+
+    <form *ngIf="inputForm" [formGroup]="inputForm" class="income-tax-container">
+        <div class="entry-container">
+            <p>
+                Gross Annual Salary
+            </p>
+            <div class="entry-input-container">
+                <input
+                    type="number"
+                    [placeholder]="'Enter salary'"
+                    formControlName="salaryAmount"
+                />
+                <app-form-error
+                    [form]="inputForm"
+                    controlName="salaryAmount"
+                    errorType="required"
+                    message="Salary amount is required.">
+                </app-form-error>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="submit" (click)="onSubmit()">Calculate</button>
+        </div>
+    </form>
+
+    <!-- for future work, support could be added to select different types of currency -->
+    <div class="income-tax-bottom-container" bottom>
+        <ng-container  *ngIf="taxBreakdown != null">
+            <div class="income-tax-output-container">
+                <h2 class="results-title">Results</h2>
+                <div class="results-grid">
+                <div class="result-item">
+                    <span class="label">Gross Annual Salary: </span>
+                    <span class="value">{{ taxBreakdown.grossAnnualSalary | currency:'GBP' }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Gross Monthly Salary: </span>
+                    <span class="value">{{ taxBreakdown.grossMonthlySalary | currency:'GBP' }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Net Annual Salary: </span>
+                    <span class="value">{{ taxBreakdown.netAnnualSalary | currency:'GBP' }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Net Monthly Salary: </span>
+                    <span class="value">{{ taxBreakdown.netMonthlySalary | currency:'GBP' }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Annual Tax Paid: </span>
+                    <span class="value">{{ taxBreakdown.annualTaxPaid | currency:'GBP' }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Monthly Tax Paid: </span>
+                    <span class="value">{{ taxBreakdown.monthlyTaxPaid | currency:'GBP' }}</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="button-container-bottom">
+                <button (click)="clearData()">Clear</button>
+            </div>
+        </ng-container>
+    </div>
+</app-main-content-wrapper>

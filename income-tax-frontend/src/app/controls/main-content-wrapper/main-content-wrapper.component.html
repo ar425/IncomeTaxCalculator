@@ -1,0 +1,12 @@
+<!-- templplate laid out in a flexible way (header, body, footer) -->
+<div class="top-section">
+    <ng-content select="[top]"></ng-content>
+</div>
+
+<div class="main-content-wrapper">
+    <ng-content></ng-content>
+</div>
+
+<div class="bottom-section">
+    <ng-content select="[bottom]"></ng-content>
+</div>
