@@ -15,7 +15,8 @@ namespace IncomeTaxApi.Data.Seed
         {
             // The tax band values have been put in a separate json file so that they can
             // be changed without needing to re-release the code
-            var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "config.json");
+            var currentDir = Directory.GetCurrentDirectory();
+            var jsonFilePath = Path.Combine(currentDir, "src\\Data", "config.json");
 
             if (!File.Exists(jsonFilePath))
             {
