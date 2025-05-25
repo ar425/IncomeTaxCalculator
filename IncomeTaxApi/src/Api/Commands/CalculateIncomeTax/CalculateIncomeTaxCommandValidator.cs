@@ -10,7 +10,8 @@ namespace IncomeTaxApi.Api.Commands.CalculateIncomeTax
         {
             RuleFor(x => x.AnnualSalaryAmount)
                 .GreaterThan(0)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Value cannot be empty or zero");
         }
 
     }

@@ -27,9 +27,9 @@ namespace IncomeTaxApi
         {
             var builder =
                 Host.CreateDefaultBuilder(args)
-                    .ConfigureAppConfiguration(config =>
+                    .ConfigureAppConfiguration((context, config) =>
                     {
-                        config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                        config.AddJsonFile(context.HostingEnvironment.IsDevelopment() ? "appsettings.development.json" : "appsettings.json", optional: false, reloadOnChange: true);
                     })
                     .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                     .UseDefaultServiceProvider((context, options) =>

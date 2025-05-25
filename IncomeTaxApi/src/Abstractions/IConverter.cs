@@ -1,6 +1,9 @@
-﻿namespace IncomeTaxApi.Abstractions;
-
-public interface IConverter<in TIn, out TOut>
+﻿namespace IncomeTaxApi.Abstractions
 {
-    TOut Convert(TIn value);
+    // This has been added to keep converters aligned within the project
+    // This converter interface can be expanded to contain multiple patterns
+    public interface IConverter<in TIn, out TOut>
+    {
+        TOut Convert(TIn value);
+    }
 }

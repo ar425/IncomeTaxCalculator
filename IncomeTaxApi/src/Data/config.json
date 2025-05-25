@@ -1,0 +1,7 @@
+﻿{
+  "taxBands": [
+    { "Id": 1, "LowerLimit": 0, "UpperLimit": 5000, "Rate": 0 },
+    { "Id": 2, "LowerLimit": 5000, "UpperLimit": 20000, "Rate": 20 },
+    { "Id": 3, "LowerLimit": 20000, "UpperLimit": null, "Rate": 40 }
+  ]
+}

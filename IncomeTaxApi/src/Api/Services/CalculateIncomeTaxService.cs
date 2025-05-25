@@ -32,7 +32,7 @@ namespace IncomeTaxApi.Api.Services
                 _logger.LogError("Could not find any tax bands in the repository");
                 throw new Exception("Could not find any tax bands in the repository");
             }
-            
+
             decimal annualTaxDeduction = 0m;
             decimal remainingIncome = annualIncome;
             

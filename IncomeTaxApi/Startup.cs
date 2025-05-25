@@ -62,10 +62,15 @@ namespace IncomeTaxApi
                 .WithTransientLifetime());
                 
 
+            // The default localhost connection is in appsettings.Development.json as leaving it in
+            // appsettings.json could lead this to being put into production
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
             var dataSource = dataSourceBuilder.Build();
 
+            // Migration files have been added to indicate that migrations have been started and
+            // the script was created so that it can be easily used for updates in the future
+            // which would create new migration files so that the business can keep track of previously done work
             services.AddDbContext<IIncomeTaxCalculatorContext, IncomeTaxCalculatorContext>(x =>
             {
                 x.UseNpgsql(dataSource, b => b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));

@@ -13,19 +13,29 @@ namespace IncomeTaxApi.Data.Contexts
 
     public class IncomeTaxCalculatorContext : DbContext, IIncomeTaxCalculatorContext
     {
-        public IncomeTaxCalculatorContext(DbContextOptions<IncomeTaxCalculatorContext> options) : base(options)
+        private readonly ILogger<IncomeTaxCalculatorContext> _logger;
+        public IncomeTaxCalculatorContext(DbContextOptions<IncomeTaxCalculatorContext> options,
+                                          ILogger<IncomeTaxCalculatorContext> logger) : base(options)
         {
+            _logger = logger;
         }
 
         public DbSet<TaxBand> TaxBands { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            try
+            {
+                modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            DataSeeder.SeedData(modelBuilder);
+                DataSeeder.SeedData(modelBuilder);
 
-            base.OnModelCreating(modelBuilder);
+                base.OnModelCreating(modelBuilder);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Exception thrown when attempting to create model: {E}", ex);
+            }
         }
     }
 }

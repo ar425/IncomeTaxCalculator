@@ -1,4 +1,5 @@
-﻿using IncomeTaxApi.Abstractions;
+﻿using FluentValidation;
+using IncomeTaxApi.Abstractions;
 using IncomeTaxApi.Api.Dtos;
 using IncomeTaxApi.Api.Services;
 using IncomeTaxApi.Data.Models;
@@ -28,7 +29,7 @@ namespace IncomeTaxApi.Api.Commands.CalculateIncomeTax
         // Utilizing the CQRS pattern to improve performance, scalability, and future security (when implemented)
         public async Task<TaxBreakdownDto> HandleAsync(CalculateIncomeTaxCommand command)
         {
-            _validator.Validate(command);
+            await _validator.ValidateAndThrowAsync(command);
 
             try
             {

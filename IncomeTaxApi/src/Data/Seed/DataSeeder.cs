@@ -1,4 +1,5 @@
-﻿using IncomeTaxApi.Data.Models;
+﻿using System.Text.Json;
+using IncomeTaxApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace IncomeTaxApi.Data.Seed
@@ -12,15 +13,27 @@ namespace IncomeTaxApi.Data.Seed
 
         private static void SeedTaxBands(ModelBuilder modelBuilder)
         {
-            var taxBands = new List<TaxBand>
+            // The tax band values have been put in a separate json file so that they can
+            // be changed without needing to re-release the code
+            var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "config.json");
+
+            if (!File.Exists(jsonFilePath))
             {
-                new() { Id = 1, LowerLimit = 0, UpperLimit = 5000, Rate = 0 },
-                new() { Id = 2, LowerLimit = 5000, UpperLimit = 20000, Rate = 20 },
-                new() { Id = 3, LowerLimit = 20000, UpperLimit = null, Rate = 40 }
-            }.ToArray<object>();
+                throw new FileNotFoundException($"Could not find config file at: {jsonFilePath}");
+            }
             
-            modelBuilder.Entity<TaxBand>()
-                .HasData(taxBands);
+            // Read and deserialize the JSON file
+            var jsonContent = File.ReadAllText(jsonFilePath);
+            
+            var configData = JsonSerializer.Deserialize<ConfigData>(jsonContent, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (configData?.TaxBands != null)
+            {
+                modelBuilder.Entity<TaxBand>().HasData(configData.TaxBands.ToArray());
+            }
         }
     }
 }
