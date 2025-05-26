@@ -56,6 +56,15 @@ This modular architecture allows the application to be easily maintained, update
 
 ---
 
+## Requirements
+
+To run this application locally, you will need **PostgreSQL 17.4.2**.
+I have been using a database named `income_tax_db`, configured with the default postgres user. The PostgreSQL server listens on port 5432.
+
+The `manage-migration.ps1` script will then need to be used to update the database (located in IncomeTaxApi/scripts).
+
+---
+
 ## Technology Choices and Architectural Overview
 
 ### **Database: PostgreSQL**
