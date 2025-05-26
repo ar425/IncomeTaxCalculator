@@ -84,7 +84,7 @@ While I considered storing user input, such as income salary, in the database, I
 
 To view and manage my PostgreSQL database tables, I used pgAdmin 4, a powerful and user-friendly open-source administration and development platform for PostgreSQL.
 
-![alt text](income-tax-frontend/media/images/pgAdmin4.png)
+![screenShot](income-tax-frontend/media/images/pgAdmin4.PNG)
 
 ### Migrations 
 I developed a PowerShell script (`manage-migrations.ps1`) to streamline the process of adding, removing, and updating database migrations. This script simplifies managing schema changes, making it easier to maintain consistency across development and deployment environments.
@@ -102,7 +102,7 @@ Maintaining this migration history is especially beneficial for enterprise-scale
 * The script handles interaction with Entity Framework Core tools to create or apply migrations seamlessly.
 * This approach simplifies database version control for developers and helps maintain synchronization between the application and its database schema.
 
-![alt text](income-tax-frontend/media/images/manage-migration-script.png)
+![screenShot](income-tax-frontend/media/images/manage-migration-script.PNG)
 
 ---
 
@@ -134,7 +134,7 @@ Once the API is confirmed to work correctly via Swagger UI, NSwag is used to gen
 
 Overall, Swagger UI acts as a convenient sandbox for iterative development, enabling faster troubleshooting and higher confidence that the API specifications are accurate and ready for consumption by generated clients.
 
-![alt text](income-tax-frontend/media/images/swagger-ui.png)
+![screenShot](income-tax-frontend/media/images/swagger-ui.PNG)
 
 ---
 ### **Frontend AngularTS**
@@ -162,14 +162,14 @@ To promote consistency and reduce repetitive code throughout the application, I 
 
 ### UI: Web
 
-![alt text](income-tax-frontend/media/images/landing-page.png)
-![alt text](income-tax-frontend/media/images/calculator-page.png)
-![alt text](income-tax-frontend/media/images/calculator-page-result.png)
-![alt text](income-tax-frontend/media/images/calculator-page-null-value.png)
+![screenShot](income-tax-frontend/media/images/landing-page.PNG)
+![screenShot](income-tax-frontend/media/images/calculator-page.PNG)
+![screenShot](income-tax-frontend/media/images/calculator-page-result.PNG)
+![screenShot](income-tax-frontend/media/images/calculator-page-null-value.PNG)
 
 ### UI: Mobile
 
-![alt text](income-tax-frontend/media/images/landing-page-mobile.png) ![alt text](income-tax-frontend/media/images/calculator-page-mobile.png)
+![screenShot](income-tax-frontend/media/images/landing-page-mobile.PNG) ![screenShot](income-tax-frontend/media/images/calculator-page-mobile.PNG)
 
 
 ---
