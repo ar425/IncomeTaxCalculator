@@ -4,7 +4,8 @@ using IncomeTaxApi.Api.Dtos;
 namespace IncomeTaxApi.Api.Queries.GetIncomeSalary;
 
 // Thought about saving salary and then getting it with this query, but it might be a security breach
-// I have left this in here as an example query handler
+// I have left this in here as an example query handler - if this query were to be utilized
+// A separate controller would need to be created that would handle all salary based calls
 public class GetIncomeSalaryQueryHandler : IRequestHandler<GetIncomeSalaryQuery, SalaryDto>
 {
     public Task<SalaryDto> HandleAsync(GetIncomeSalaryQuery query)

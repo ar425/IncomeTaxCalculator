@@ -1,14 +1,6 @@
 ﻿namespace IncomeTaxApi.Data.Models
 {
-    public interface ITaxBand
-    {
-         int Id { get; set; }
-         int LowerLimit { get; set; }
-         int? UpperLimit { get; set; }
-         int Rate { get; set; }
-    }
-
-    public class TaxBand : ITaxBand
+    public class TaxBand
     {
         public int Id { get; set; }
         public int LowerLimit { get; set; }

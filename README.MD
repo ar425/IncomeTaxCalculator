@@ -60,7 +60,7 @@ This modular architecture allows the application to be easily maintained, update
 
 ### **Database: PostgreSQL**
 
-The project uses PostgreSQL as its database due to its open-source nature, lack of licensing fees, and strong community support. It offers advanced SQL compliance with powerful features such as complex queries, window functions, full-text search, and native JSON support—ideal for an enteprise scaqle application.
+The project uses PostgreSQL as its database due to its open-source nature, lack of licensing fees, and strong community support. It offers advanced SQL compliance with powerful features such as complex queries, window functions, full-text search, and native JSON support - ideal for an enteprise scale application.
 
 PostgreSQL supports large databases, offers a wide variety of client libraries and management tools, and integrates well with frameworks via ORMs like Entity Framework Core, which is used here with the C# ASP.NET backend.
 
@@ -76,7 +76,7 @@ If user authentication is added to support multiple concurrent users, PostgreSQL
 * Microsoft SQL server:
     * A robust option in Microsoft environments but comes with licensing costs and may be excessive for small to mid-sized projects. PostgreSQL delivers comparable enterprise features without fees.
 * MongoDB:
-    * Excellent for flexible, schema-less data, but less suited for this app’s structured, relational data needs. Complex joins and transactions are more difficult and less efficient in MongoDB.
+    * Excellent for flexible, schema-less data, but less suited for this app’s structured, relational data model that, while simple now, may grow more complex with additional relationships in the future. Complex joins and transactions are more difficult and less efficient in MongoDB.
 
 I chose to store the tax band data in the database to demonstrate practical data usage. The data is seeded using a data seeder, with initial values loaded from a config.json file. This approach allows the tax band values to be updated easily without requiring code changes or redeployment. The `IncomeTaxCalculatorContext.cs` class centralizes the creation of the database context for all models, rather than instantiating separate contexts for each model. This design promotes scalability and maintainability, making it well-suited for enterprise-level applications.
 
@@ -114,7 +114,7 @@ The backend is built with C# ASP.NET Core, meeting spec requirements. The applic
 * **Controller:** Handles HTTP requests and coordinates interactions (e.g., `TaxController.cs`)
 * **View:** The user interface, implemented in Angular TypeScript
 
-This architecture promotes clean, scalable, and maintainable code—ideal for enterprise-grade applications like this tax calculator.
+This architecture promotes clean, scalable, and maintainable code - ideal for enterprise-grade applications.
 
 ### Custom Components
 
@@ -122,17 +122,15 @@ To improve maintainability and scalability, I designed custom interfaces such as
 
 For example, IRequestHandler abstracts the logic for handling various types of requests, allowing different implementations to be swapped in or enhanced without affecting the overall system. Similarly, IConverter centralizes data transformation logic, facilitating consistent conversions between different object types such as entities, DTOs, and view models.
 
-Additionally, these interfaces are designed to be flexible and extensible. If new architectural patterns or requirements arise—such as adding pipeline behaviors, validation, or logging—they can be easily integrated by expanding or implementing these interfaces differently. This forward-thinking design supports long-term growth and adaptation of the application as business needs evolve.
+Additionally, these interfaces are designed to be flexible and extensible. If new architectural patterns or requirements arise - such as adding pipeline behaviors, validation, or logging - they can be easily integrated by expanding or implementing these interfaces differently. This forward-thinking design supports long-term growth and adaptation of the application as business needs evolve.
 
 ### Swagger UI
 
-For initial testing and exploration of the API, I used Swagger UI. This interactive tool is incredibly valuable for quickly verifying endpoints, request formats, and responses without needing a client application. It provides immediate feedback on the API’s behavior, allowing me to spot early mistakes, inconsistencies, or unexpected responses during development.
+For initial testing and exploration of the API, I used Swagger UI. This interactive tool is very valuable for quickly verifying endpoints, request formats, and responses without needing a client application. It provides immediate feedback on the API’s behavior, allowing me to spot early mistakes, inconsistencies, or unexpected responses during development.
 
 Using Swagger UI early in the process helps ensure that the API is well-designed and functional before moving on to automate client generation with NSwag. By validating the API manually first, I can catch issues such as incorrect parameter bindings, missing data models, or improper response types, which saves time and effort that would otherwise be spent debugging generated client code.
 
-Once the API is confirmed to work correctly via Swagger UI, NSwag is used to generate strongly typed client code automatically based on the OpenAPI specification. This seamless integration reduces manual coding errors and ensures that the frontend API clients stay in sync with backend changes. Together, Swagger UI and NSwag streamline the API development lifecycle—from manual testing and validation to automated client generation—resulting in a more robust and maintainable codebase.
-
-Overall, Swagger UI acts as a convenient sandbox for iterative development, enabling faster troubleshooting and higher confidence that the API specifications are accurate and ready for consumption by generated clients.
+Once the API is confirmed to work correctly via Swagger UI, NSwag is used to generate strongly typed client code automatically based on the OpenAPI specification. This seamless integration reduces manual coding errors and ensures that the frontend API clients stay in sync with backend changes. Together, Swagger UI and NSwag streamline the API development lifecycle - from manual testing and validation to automated client generation - resulting in a more robust and maintainable codebase.
 
 ![screenShot](income-tax-frontend/media/images/swagger-ui.PNG)
 
@@ -143,7 +141,7 @@ For the frontend, I utilized NSwag to automatically generate strongly-typed API 
 
 On the data flow side, data retrieved from the database is first mapped from entity models to Data Transfer Objects (DTOs) on the backend. These DTOs encapsulate only the required information, enforcing a clear boundary between the database schema and what is exposed to the frontend. This separation improves security, reduces payload size, and allows backend internal changes without impacting the frontend.
 
-Once the DTOs reach the frontend, they are transformed again into client-specific models or view models tailored for UI rendering and interaction. This additional mapping layer enhances flexibility in how data is displayed or manipulated within the Angular components.
+Once the DTOs reach the frontend, they are transformed again into client-specific models or view models tailored for UI rendering and interaction.
 
 The frontend code is structured with dedicated services and repositories. This separation of concerns promotes maintainability, testability, and clean architecture by isolating data access logic from UI components. Services handle the API calls and business logic, while repositories abstract data management, making the codebase scalable and easier to manage, especially for enterprise-level applications.
 
@@ -156,7 +154,7 @@ Calculation results are only displayed after the user submits a valid input and 
 
 ### Styling
 
-From a design perspective, I adopted a mobile-first approach to styling. This ensures the interface is fully responsive and renders appropriately across a wide range of screen sizes and devices, from smartphones to desktop monitors. The color scheme was carefully selected to match the branding of the Commify website, helping maintain a consistent business identity. Furthermore, I designed a custom icon inspired by the same visual style, adding a cohesive and professional touch to the overall look and feel of the application.
+From a design perspective, I adopted a mobile-first approach to styling. This ensures the interface is fully responsive and renders appropriately across a wide range of screen sizes and devices, from smartphones to desktop monitors. The colour scheme was selected to match the branding of the Commify website, helping maintain a consistent business identity. Furthermore, I designed a custom icon inspired by the same visual style, adding a professional touch to the overall look and feel of the application.
 
 To promote consistency and reduce repetitive code throughout the application, I implemented a `app-main-content-wrapper` component. This wrapper serves as a reusable container that standardizes the layout and structure of the primary content area across all pages, minimizing boilerplate and ensuring a unified user experience.
 
@@ -176,11 +174,11 @@ To promote consistency and reduce repetitive code throughout the application, I 
 
 ### Testing
 
-Throughout the development process, I employed both manual and automated testing to ensure the application functioned correctly and met the specified requirements. Manual testing involved interacting with the application directly, simulating user actions to verify features such as form validations, navigation, and data calculations behaved as expected.
+Throughout the development process, I used both manual and automated testing to ensure the application functioned correctly and met the specified requirements. Manual testing involved interacting with the application directly, simulating user actions to verify features such as form validations, navigation, and data calculations behaved as expected.
 
 In parallel, I implemented unit tests to automatically validate the functionality of individual components, services, and business logic in isolation. This helped catch regressions early and ensured that each part of the codebase maintained its intended behavior as the project evolved.
 
-Whenever issues arose during testing or development, I utilized a combination of debugging tools to diagnose and resolve them efficiently. For frontend issues, I inspected the browser’s developer console to check for errors, warnings, or unexpected behavior in real time. Additionally, I leveraged breakpoints and step-through debugging within the integrated development environment (IDE) to closely examine the flow of execution and the state of variables at critical points in the code. This comprehensive approach to testing and debugging helped maintain a high level of code quality and reliability throughout the project.
+Whenever issues arose during testing or development, I utilized a combination of debugging tools to diagnose and resolve them efficiently. For frontend issues, I inspected the browser’s developer console to check for errors, warnings, or unexpected behavior in real time. Additionally, I leveraged breakpoints and step-through debugging within the IDE to closely examine the flow of execution and the state of variables at critical points in the code.
 
 ---
 
@@ -188,11 +186,11 @@ Whenever issues arose during testing or development, I utilized a combination of
 
 This project demonstrates a well-structured and thoughtfully implemented Income Tax Calculator application, built with scalability, maintainability, and enterprise readiness in mind. By leveraging PostgreSQL as the database backend, the application benefits from advanced SQL capabilities, robust transaction handling, and seamless integration with C# ASP.NET through Entity Framework Core. The use of migration scripts and data seeding further enhances maintainability and supports smooth evolution of the database schema over time.
 
-On the backend, clear separation between entity models and Data Transfer Objects (DTOs) ensures a clean API contract and safeguards internal data structures. Custom interfaces like IRequestHandler and IConverter promote consistent patterns, improve code organization, and prepare the system for future expansions or architectural changes.
+On the backend, clear separation between entity models and DTOs ensures a clean API contract and safeguards internal data structures. Custom interfaces like IRequestHandler and IConverter promote consistent patterns, improve code organization, and prepare the system for future expansions or architectural changes.
 
 The frontend follows modern Angular practices with component-based design, strict input validation, and a mobile-first approach to styling, ensuring a responsive and user-friendly experience aligned with business branding. The use of NSwag to generate API clients streamlines communication between frontend and backend, reducing manual effort and minimizing errors.
 
-Rigorous testing—combining manual exploratory testing and automated unit tests—alongside effective debugging practices, ensures the application functions reliably and meets its functional requirements.
+Rigorous testing - combining manual exploratory testing and automated unit tests - alongside effective debugging practices, ensures the application functions reliably and meets its functional requirements.
 
 Overall, this project not only meets its functional goals but is built on solid architectural principles and best practices, making it well-suited for growth, maintenance, and adaptation in an enterprise context.
 

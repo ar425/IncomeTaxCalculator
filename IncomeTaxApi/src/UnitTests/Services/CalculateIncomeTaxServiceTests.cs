@@ -30,8 +30,65 @@ namespace IncomeTaxApi.UnitTests.Services
         // For multiple tests using different values we can use [TestCase()]
         // however in this instance I feel that there would be too many variables involved
         // and would quickly clutter the code
+        
         [Test]
-        public async Task CalculateIncomeTax_ReturnsCorrectValue()
+        public async Task CalculateIncomeTax_Band1Income_ReturnsCorrectValue()
+        {
+            // Arrange
+            var taxBand1 = new TaxBand { LowerLimit = 0, UpperLimit = 10000, Rate = 10 };
+            var taxBand2 = new TaxBand { LowerLimit = 10000, UpperLimit = 20000, Rate = 20 };
+            var taxBand3 = new TaxBand { LowerLimit = 20000, UpperLimit = null, Rate = 30 };
+
+            var taxBandList = new List<TaxBand>() { taxBand1, taxBand2, taxBand3 };
+
+            _taxBandRepoMock
+                .Setup(repo => repo.GetAllAsync())!
+                .ReturnsAsync(taxBandList);
+
+            var annualIncome = 8000m;
+            var annualIncomeResult = 800m;
+
+            // Act
+            var result = await Subject.CalculateIncomeTaxAsync(annualIncome);
+
+            // Assert
+            result.GrossAnnualSalary.Should().Be(annualIncome);
+            result.AnnualTaxPaid.Should().Be(annualIncomeResult);
+            result.MonthlyTaxPaid.Should().Be(Math.Round(annualIncomeResult / 12, 2));
+            result.NetAnnualSalary.Should().Be(annualIncome - annualIncomeResult);
+            result.NetMonthlySalary.Should().Be(Math.Round((annualIncome / 12) - (annualIncomeResult / 12), 2));
+        }
+
+        [Test]
+        public async Task CalculateIncomeTax_Band2Income_ReturnsCorrectValue()
+        {
+            // Arrange
+            var taxBand1 = new TaxBand { LowerLimit = 0, UpperLimit = 10000, Rate = 10 };
+            var taxBand2 = new TaxBand { LowerLimit = 10000, UpperLimit = 20000, Rate = 20 };
+            var taxBand3 = new TaxBand { LowerLimit = 20000, UpperLimit = null, Rate = 30 };
+
+            var taxBandList = new List<TaxBand>() { taxBand1, taxBand2, taxBand3 };
+
+            _taxBandRepoMock
+                .Setup(repo => repo.GetAllAsync())!
+                .ReturnsAsync(taxBandList);
+
+            var annualIncome = 15000m;
+            var annualIncomeResult = 2000m;
+
+            // Act
+            var result = await Subject.CalculateIncomeTaxAsync(annualIncome);
+
+            // Assert
+            result.GrossAnnualSalary.Should().Be(annualIncome);
+            result.AnnualTaxPaid.Should().Be(annualIncomeResult);
+            result.MonthlyTaxPaid.Should().Be(Math.Round(annualIncomeResult / 12, 2));
+            result.NetAnnualSalary.Should().Be(annualIncome - annualIncomeResult);
+            result.NetMonthlySalary.Should().Be(Math.Round((annualIncome / 12) - (annualIncomeResult / 12), 2));
+        }
+        
+        [Test]
+        public async Task CalculateIncomeTax_Band3Income_ReturnsCorrectValue()
         {
             // Arrange
 
@@ -41,9 +98,9 @@ namespace IncomeTaxApi.UnitTests.Services
 
             var taxBandList = new List<TaxBand>() { taxBand1, taxBand2, taxBand3 };
 
-             _taxBandRepoMock
-                 .Setup(repo => repo.GetAllAsync())!
-                 .ReturnsAsync(taxBandList);
+            _taxBandRepoMock
+                .Setup(repo => repo.GetAllAsync())!
+                .ReturnsAsync(taxBandList);
 
             var annualIncome = 25000m;
             var annualIncomeResult = 4500m;
@@ -59,6 +116,7 @@ namespace IncomeTaxApi.UnitTests.Services
             result.NetAnnualSalary.Should().Be(annualIncome - annualIncomeResult);
             result.NetMonthlySalary.Should().Be(Math.Round((annualIncome / 12) - (annualIncomeResult / 12), 2));
         }
+
 
         [Test]
         public async Task CalculateIncomeTax_ThrowsException_WhenNoTaxBands()

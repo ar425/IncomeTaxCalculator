@@ -64,6 +64,7 @@ namespace IncomeTaxApi
 
             // The default localhost connection is in appsettings.Development.json as leaving it in
             // appsettings.json could lead this to being put into production
+            // I wanted to show usage of a real database, but I could have also used an in memory database
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
             var dataSource = dataSourceBuilder.Build();

@@ -40,9 +40,9 @@ namespace IncomeTaxApi.Api.Commands.CalculateIncomeTax
             catch (Exception e)
             {
                 // For future work I would implement more tailored exceptions (as I have done for EntityNotFoundException)
-                // so that it could be applied in other areas and passed to the UI for personalised error toasts
+                // so that it could be applied in other areas and passed to the UI for personalised error toasts where applicable
                 _logger.LogError("Unexpected exception thrown when attempting to calculate income tax {E}", e);
-                throw new Exception("Unexpected exception thrown when attempting to calculate income tax");
+                throw new InvalidOperationException("Unexpected exception thrown when attempting to calculate income tax");
             }
         }
     }
